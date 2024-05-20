@@ -3,11 +3,16 @@ pipeline {
 
     parameters {
         string(name: 'REPO_URL', defaultValue: 'https://github.com/chrisdylan237/apps1.git', description: 'Enter your Repository URL')
-        string(name: 'BRANCH', defaultValue: 'your-branch', description: 'enter the Branch to clone')
-        string(name: 'CREDENTIALS_ID', defaultValue: 'your-credentials-id', description: 'enter your git Credentials ID')
+        string(name: 'BRANCH', defaultValue: 'your-branch', description: 'Enter the Branch to clone')
+        string(name: 'CREDENTIALS_ID', defaultValue: 'your-credentials-id', description: 'Enter your Git Credentials ID')
     }
 
     stages {
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
         stage('Cloning the Repository') {
             steps {
                 script {
