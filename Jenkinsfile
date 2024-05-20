@@ -23,5 +23,17 @@ pipeline {
                 }
             }
         }
+        stage('SonarQube Analysis') {
+            environment {
+                SONAR_SCANNER_HOME = tool 'sonar'
+            }
+            steps {
+                withSonarQubeEnv('sonar') {
+                    script {
+                        sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
+                    }
+                }
+            }
+        }
     }
 }
