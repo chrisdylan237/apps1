@@ -46,5 +46,18 @@ pipeline {
                 }
             }
         }
+        stage('Login and Push to DockerHub') {
+            steps {
+                script {
+                    // Login to DockerHub using Jenkins credentials
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-dylan', usernameVariable: 'DOCKER_USERNAME', 
+                    passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                    }
+                    // Push Docker image to DockerHub
+                    sh "docker push ${params.DOCKERHUB_USERNAME}/${params.APP_NAME}:${params.APP_VERSION}"
+                }
+            }
+        }
     }
 }
