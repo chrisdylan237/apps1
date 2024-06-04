@@ -101,4 +101,13 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            slackSend(channel: 'google', message: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' succeeded.", color: 'good')
+        }
+        failure {
+            slackSend(channel: 'google', message: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' failed.", color: 'danger')
+        }
+    }
 }
